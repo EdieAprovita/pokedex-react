@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Grid, Container, Typography } from "@mui/material";
 import PokemonCard from "./PokemonCard";
 import Pagination from "./Pagination";
+import Loader from "./Loader";
 import { Pokemon } from "../../types/types";
 import { getPokemon } from "../api/api";
 import Search from "./Search";
@@ -14,15 +15,18 @@ const PokemonGrid: React.FC = () => {
 	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 	const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
 	const [page, setPage] = useState(1);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchPokemons = async () => {
+			setIsLoading(true);
 			const promises = Array.from({ length: 500 }, (_, index) =>
 				getPokemon(index + 1)
 			);
 			const results = await Promise.all(promises);
 			setPokemons(results);
 			setFilteredPokemons(results);
+			setIsLoading(false);
 		};
 		fetchPokemons();
 	}, []);
@@ -57,18 +61,24 @@ const PokemonGrid: React.FC = () => {
 				sx={{ textAlign: "center", mt: 2, mb: 2 }}>
 				Pokemons
 			</Typography>
-			<Grid container spacing={3}>
-				{paginatedPokemons.map(pokemon => (
-					<Grid item xs={12} sm={6} md={4} lg={3} key={pokemon.id}>
-						<PokemonCard pokemon={pokemon} />
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<Grid container spacing={3}>
+						{paginatedPokemons.map(pokemon => (
+							<Grid item xs={12} sm={6} md={4} lg={3} key={pokemon.id}>
+								<PokemonCard pokemon={pokemon} />
+							</Grid>
+						))}
 					</Grid>
-				))}
-			</Grid>
-			<Pagination
-				count={Math.ceil(filteredPokemons.length / ITEMS_PER_PAGE)}
-				page={page}
-				onPageChange={handlePageChange}
-			/>
+					<Pagination
+						count={Math.ceil(filteredPokemons.length / ITEMS_PER_PAGE)}
+						page={page}
+						onPageChange={handlePageChange}
+					/>
+				</>
+			)}
 		</Container>
 	);
 };
