@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 export default function Home() {
 	return (
-		<div>
+		<div className={styles.background}>
 			<AppBar position="static">
 				<Toolbar>
 					<Typography variant="h6">Pokedex</Typography>

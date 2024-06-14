@@ -35,7 +35,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
 				/>
 				<CardContent>
 					<Typography variant="h5" component="div">
-						Name: {pokemon.name}
+						{pokemon.name.toLocaleUpperCase()}
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
 						ID: {pokemon.id}
