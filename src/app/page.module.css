@@ -1,6 +1,13 @@
+
+
 .background {
     background: linear-gradient(to right, #74ebd5, #acb6e5); 
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
 }
 
 .main {
@@ -8,19 +15,26 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .title {
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    color: #333030; 
 }
 
 .card {
     transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #eae2e2; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    padding: 1rem;
 }
 
 .card:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
